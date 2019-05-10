@@ -52,3 +52,23 @@ println("使用函数对象$(sum(5,6))")
 总结一下：对于Array等对象符合上述情况，而Number，String不符合...需要区分赋值操作&变异操作
 =#
 
+#= Julia 默认值作用域的计算
+默认值表达式，只有先前的参数才在作用域呢
+
+只要使默认表达式在前，该处的定义似乎就意义不大...
+=#
+function defaultValue(v1,v2=v1,v3=1) # 这里的v2可以接受v1参数
+	println("v1 = $v1,v2 = $v2")
+end
+
+defaultValue(2)
+
+function defaultValue2(v1,v2=v3,v3=1) # 此处的v2 = v3中的v3跟后面参数中的v3没有任何关系
+    println("v1 = $v1,v2=$v2")
+end
+defaultValue2(3,5)
+
+function defaultValue3(v1,v2 =3,v3=v2)
+    println("v1 = $v1,v2 = $v2,v3=$v3")
+end
+defaultValue3(1)
